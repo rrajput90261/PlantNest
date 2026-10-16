@@ -28,9 +28,24 @@ function Wishlist() {
     }
   };
 
-  useEffect(() => {
+  
+useEffect(() => {
+  getWishlist();
+
+  const handleWishlistUpdate = () => {
     getWishlist();
-  }, []);
+  };
+
+  window.addEventListener("wishlistUpdate", handleWishlistUpdate);
+
+  return () => {
+    window.removeEventListener(
+      "wishlistUpdate",
+      handleWishlistUpdate
+    );
+  };
+}, []);
+
 
   if (!localStorage.getItem("token")) {
     return (

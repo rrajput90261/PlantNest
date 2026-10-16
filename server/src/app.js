@@ -27,6 +27,14 @@ app.get("/", (req, res) => {
   });
 });
 
+export const notifyCartUpdate = () => {
+  window.dispatchEvent(new Event("cartUpdate"));
+};
+
+export const notifyWishlistUpdate = () => {
+  window.dispatchEvent(new Event("wishlistUpdate"));
+};
+
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {

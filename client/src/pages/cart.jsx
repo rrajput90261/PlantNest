@@ -68,9 +68,20 @@ function Cart() {
   }
 };
 
-  useEffect(() => {
+ 
+useEffect(() => {
+  getCart();
+
+  const handleCartUpdate = () => {
     getCart();
-  }, []);
+  };
+
+  window.addEventListener("cartUpdate", handleCartUpdate);
+
+  return () => {
+    window.removeEventListener("cartUpdate", handleCartUpdate);
+  };
+}, []);
 
   const total = cart.reduce(
     (sum, item) => sum + item.plant.price * item.quantity,

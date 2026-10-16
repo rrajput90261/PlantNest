@@ -33,6 +33,9 @@ function Login() {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
 
+      window.dispatchEvent(new Event("authChange"));
+
+
       navigate("/");
     } catch (error) {
       setMessage(error.response?.data?.message || "Login failed");
