@@ -41,6 +41,7 @@ export const registerUser = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role || "user",
       },
     });
   } catch (error) {
@@ -52,7 +53,6 @@ export const registerUser = async (req, res) => {
     });
   }
 };
-
 
 export const loginUser = async (req, res) => {
   try {
@@ -74,10 +74,7 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    const isPasswordMatch = await bcrypt.compare(
-      password,
-      user.password
-    );
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordMatch) {
       return res.status(401).json({
@@ -93,7 +90,7 @@ export const loginUser = async (req, res) => {
       process.env.JWT_SECRET,
       {
         expiresIn: "7d",
-      }
+      },
     );
 
     res.status(200).json({
@@ -104,6 +101,7 @@ export const loginUser = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role || "user",
       },
     });
   } catch (error) {
@@ -115,5 +113,3 @@ export const loginUser = async (req, res) => {
     });
   }
 };
-
-
